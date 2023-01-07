@@ -30,3 +30,69 @@ class Solution {
     }
 }
 ```
+
+## 2023.1.7
+
+### 思路和代码
+因为每次只能移除当前数组的最左侧和最右侧的元素作为 `组成x的成员`，如果分情况进行判断的话会非常麻烦，所以使用滑动窗口来做。
+当滑动窗口的范围和为 `target=数组总和-x`时，记录当前的 `操作数=数组长度-滑动窗口长度`，最后返回最小的操作数即可。
+```java
+class Solution {
+    public int minOperations(int[] nums, int x) {
+        // 计算数组总和
+        int cnt = 0;
+        int len = nums.length;
+        for (int i = 0; i < len; i++) {
+            cnt += nums[i];
+        }
+        // 若数组总和都小于x，则返回-1 等于x则返回数组长度
+        if(cnt<x)
+            return -1;
+        if(cnt == x)
+            return len;
+            
+        // 求target    
+        int target = cnt - x;
+
+        // 使用滑动窗口获取最终结果
+        int l = 0, r = l + 1;
+        int curCnt = nums[l];
+        int ans = Integer.MAX_VALUE;
+        while (r < len) {
+            while (r < len && curCnt < target) {
+                curCnt += nums[r];
+                r++;
+            }
+            
+            // 当滑动窗口的总和等于x，记录当前的操作数
+            if (curCnt == target) {
+                int curAns = r - l;
+                ans = Math.min(ans, len - curAns);
+                
+                // 为了找到所有的可能性，将左指针右移
+                if(l<len)
+                {
+                    curCnt -= nums[l];
+                    l++;
+                }
+            }
+
+            while (l < r && curCnt > target) {
+                curCnt -= nums[l];
+                l++;
+            }
+            if (curCnt == target) {
+                int curAns = r - l;
+                ans = Math.min(ans, len - curAns);
+                if(l<len)
+                {
+                    curCnt -= nums[l];
+                    l++;
+                }
+            }
+
+        }
+        return ans == Integer.MAX_VALUE ? -1 : ans;
+    }
+}
+```

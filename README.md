@@ -97,3 +97,20 @@ class Solution {
     }
 }
 ```
+## 2023.1.8
+![image](https://user-images.githubusercontent.com/61445378/211178722-1691a3bc-953f-424d-8062-ed17ab346b3c.png)
+
+### 思路和代码
+今天的每日一题比较简单，直接使用`String.startWith(String pre)`函数即可解决。
+```java
+class Solution {
+    public int prefixCount(String[] words, String pref) {
+        int cnt = 0;
+        for (String word : words) {
+            if (word.startsWith(pref))
+                cnt++;
+        }
+        return cnt;
+    }
+}
+```

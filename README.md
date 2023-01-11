@@ -114,3 +114,77 @@ class Solution {
     }
 }
 ```
+
+
+## 2023.1.9
+
+![image](https://user-images.githubusercontent.com/61445378/211727721-8d2c986c-ab30-41b7-b3dc-f7dac77d6f1c.png)
+![image](https://user-images.githubusercontent.com/61445378/211727749-c0bac15f-4494-4e0a-9ff3-8d62feef893c.png)
+### 思路和代码
+模拟运算过程，同时计数。
+```java
+class Solution {
+    public int reinitializePermutation(int n) {
+        int[] perm = new int[n];
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            perm[i] = i;
+        }
+
+        for (int i = 0; ; i++) {
+            for (int j = 0; j < n; j++) {
+                if (j % 2 == 0) {
+                    arr[j] = perm[j / 2];
+                } else {
+                    arr[j] = perm[n / 2 + (j - 1) / 2];
+                }
+            }
+
+            for (int k=0;k<n;k++)
+            {
+                perm[k] = arr[k];
+            }
+
+            int flag = 0;
+            for (int k=0;k<n;k++)
+            {
+                if (perm[k] != k)
+                {
+                    flag = 1;
+                    break;
+                }
+            }
+
+            if (flag == 0)
+                return i+1;
+        }
+    }
+}
+```
+
+## 2023.1.10
+### 思路和代码
+
+## 2023.1.11
+![image](https://user-images.githubusercontent.com/61445378/211724426-8f6b5762-5618-4527-ad6d-39c9a6fa803d.png)
+
+### 思路和代码
+先判断每个数字出现的次数，然后判断每个数字出现的次数是否等于对应位置字符串表示的数量。
+```java
+class Solution {
+    public boolean digitCount(String num) {
+        int[] cnt = new int[10];
+        for(char ch : num.toCharArray())
+        {
+            cnt[ch-'0']++;
+        }
+
+        for(int i=0;i<num.length();i++)
+        {
+            if((num.charAt(i)-'0') != cnt[i])
+                return false;
+        }
+        return true;
+    }
+}
+```

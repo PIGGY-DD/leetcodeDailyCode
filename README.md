@@ -188,3 +188,52 @@ class Solution {
     }
 }
 ```
+## 2023.1.12
+![image](https://user-images.githubusercontent.com/61445378/211966392-f89f9aa1-1e66-473f-a54a-79d4f38184fb.png)
+![image](https://user-images.githubusercontent.com/61445378/211966418-696e7b71-26d0-40d6-8b4a-a47876ecdfe4.png)
+### 思路和代码
+简单的字符串匹配替换问题，唯一需要小心的就是数值范围比较大，所以需要提高查询替换词的效率，因此将List转存为Map来提升查询效率。
+当遇到'('时开始存储括号内的字符串，当遇到')'时则停止，开始在Map中查询对应的字符串，找不到对应的则存为"?"，最后返回替换结果即可。
+```java
+class Solution {
+    public String evaluate(String s, List<List<String>> knowledge) {
+        StringBuffer sb = new StringBuffer();
+
+        int len = s.length();
+        
+        HashMap<String,String> map = new HashMap<>();
+        for (List<String> list : knowledge) {
+            map.put(list.get(0),list.get(1));
+        }
+        
+        
+        for (int i=0;i<len;i++)
+        {
+            char ch = s.charAt(i);
+            if (ch == '(')
+            {
+                StringBuffer ss = new StringBuffer();
+                i++;
+                while (s.charAt(i)!=')')
+                {
+                    ss.append(s.charAt(i));
+                    i++;
+                }
+                
+                if(map.containsKey(ss.toString()))
+                {
+                    sb.append(map.get(ss.toString()));
+                }
+                else
+                    sb.append("?");
+            }
+            else
+            {
+                sb.append(ch);
+            }
+        }
+
+        return sb.toString();
+    }
+}
+```

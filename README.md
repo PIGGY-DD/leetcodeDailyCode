@@ -237,3 +237,36 @@ class Solution {
     }
 }
 ```
+## 2023.1.13
+![image](https://user-images.githubusercontent.com/61445378/212288476-211d76c2-1630-420f-87fc-7ff893b3c046.png)
+![image](https://user-images.githubusercontent.com/61445378/212288501-e702c7f6-dff8-4fbd-9003-2263cfbf688f.png)
+
+### 思路和代码
+因为不涉及到s中字母排列的先后顺序，所以只需要统计target和s中各个小写字母出现的次数，然后判断s中字母可以组成target的次数即可。
+```java
+class Solution {
+    public int rearrangeCharacters(String s, String target) {
+        int[] targetArray = new int[26];
+        for(char ch : target.toCharArray())
+        {
+            targetArray[ch - 'a']++;
+        }
+
+        int[] cnt = new int[26];
+        for(char ch : s.toCharArray())
+        {
+            cnt[ch - 'a']++;
+        }
+        int ans = Integer.MAX_VALUE;
+        for(int i=0;i<26;i++)
+        {
+            if(targetArray[i] != 0)
+            {
+                ans = Math.min(ans, cnt[i] / targetArray[i]);
+            }
+        }
+        return ans;
+
+    }
+}
+```

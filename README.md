@@ -270,3 +270,41 @@ class Solution {
     }
 }
 ```
+
+## 2023.1.15
+![image](https://user-images.githubusercontent.com/61445378/212596599-6c103822-38b6-4e52-a225-8a4e0e745840.png)
+![image](https://user-images.githubusercontent.com/61445378/212596575-fe254f31-a77a-4b4d-a171-76d13cb63f25.png)
+### 思路和代码
+直接根据规律模拟整个的计算过程，然后递归即可，递归出口为数组长度为1.
+```java
+class Solution {
+    public int minMaxGame(int[] nums) {
+        int len = nums.length;
+        if(len == 1)
+            return nums[0];
+
+        int[] newNums = new int[len/2];
+
+        for(int i=0;i<len/2;i++)
+        {
+            if(i%2==0)
+            {
+                newNums[i] = Math.min(nums[2*i],nums[2*i+1]);
+            }
+            else
+            {
+                newNums[i] = Math.max(nums[2*i],nums[2*i+1]);
+            }
+        }
+
+        return minMaxGame(newNums);
+    }
+}
+```
+
+## 2023.1.16
+![image](https://user-images.githubusercontent.com/61445378/212596642-f09509f2-0c73-4692-a045-f348a609ea54.png)
+![image](https://user-images.githubusercontent.com/61445378/212596670-7ec12129-1299-4a03-88c8-502adb111544.png)
+### 思路和代码
+```java
+```

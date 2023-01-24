@@ -308,3 +308,38 @@ class Solution {
 ### 思路和代码
 ```java
 ```
+
+
+## 2023.1.24
+![image](https://user-images.githubusercontent.com/61445378/214212501-15e65f93-cdf6-41a0-9042-cb7d5f82cb73.png)
+![image](https://user-images.githubusercontent.com/61445378/214212523-c52a27f6-4b26-4fd6-bfff-8131f37359a5.png)
+![image](https://user-images.githubusercontent.com/61445378/214212561-fbcb3151-0ea2-493b-a9bb-12a828ee3e0c.png)
+### 思路和代码
+因为数据量并不大，所以直接暴力就可以。根据每个圆心坐标和半径信息，依次计算每个点和圆心之间的距离，与半径相对比即可。
+```java
+class Solution {
+    public int[] countPoints(int[][] points, int[][] queries) {
+        int len = queries.length;
+        int[] ans = new int[len];
+
+        for (int i = 0; i < len; i++) {
+            int x = queries[i][0];
+            int y = queries[i][1];
+            int r = queries[i][2];
+            for (int j = 0; j < points.length; j++) {
+                int a = points[j][0];
+                int b = points[j][1];
+                int dis = Math.abs((x - a) * (x - a) + (y - b) * (y - b));
+                // System.out.println(dis+"---"+r);
+                if (dis<=r*r)
+                {
+                    ans[i]++;
+                }
+            }
+        }
+
+
+        return ans;
+    }
+}
+```

@@ -309,6 +309,47 @@ class Solution {
 ```java
 ```
 
+## 2023.1.21
+![image](https://user-images.githubusercontent.com/61445378/214220710-10981d32-6a47-4c8c-8794-a8bb93cb9faa.png)
+![image](https://user-images.githubusercontent.com/61445378/214220739-9d44b474-44df-4ddf-9182-2d4cc80cd951.png)
+![image](https://user-images.githubusercontent.com/61445378/214220764-daf468d0-e662-4d1b-bc0a-fa8fd28b9919.png)
+![image](https://user-images.githubusercontent.com/61445378/214220805-1547322d-ee25-4a21-8fc8-82087b146a0c.png)
+## 思路和代码
+使用动态规划的思想，每次计算到当前位置需要的最少横跳的次数。计算过程中分为一下几种情况：
+1. 当前位置有石头，则标记为最大值`dp[i][j] = 0x3f3f3f3f`
+2. 当前位置没有石头，则分为两种情况
+    1. 当前赛道的上一个位置没有石头，则无需横跳`dp[i][j]=dp[i-1][j]`；
+    2. 当前赛道的上一个位置有石头，则只能从其他两个赛道横跳过来`dp[i][j] = min(dp[i-1][j], dp[i-1][(j+1)%3]+1, dp[i-1][(j+2)%3]+1)`
+```java
+public int minSideJumps(int[] obstacles) {
+        int len = obstacles.length;
+
+        int[][] dp = new int[len][3];
+
+        dp[0][0] = 1;
+        dp[0][1] = 0;
+        dp[0][2] = 1;
+
+        for (int i = 1; i < len; i++) {
+
+            for (int j = 0; j < 3; j++) {
+                // 当前位置没有石头，则可以由上个位置的任意一个跑道跳过来
+                if (obstacles[i] != j + 1) {
+                    dp[i][j] = dp[i - 1][j];
+                    // 上个位置也有石头，则需要从其他跑道跳过来
+                    if (obstacles[i - 1] != j + 1) {
+                        dp[i][j] = Math.min(dp[i][j], Math.min(dp[i - 1][(j + 1) % 3] + 1, dp[i - 1][(j + 2) % 3] + 1));
+                    }
+                } else {
+                    dp[i][j] = 0x3f3f3f3f;
+                }
+            }
+        }
+
+        return Math.min(dp[len - 1][0], Math.min(dp[len - 1][1], dp[len - 1][2]));
+    }
+```
+
 ## 2023.1.23
 ![image](https://user-images.githubusercontent.com/61445378/214214843-3416e5ea-40a3-4378-aa23-a227f4ef01b4.png)
 ![image](https://user-images.githubusercontent.com/61445378/214214872-4d03773e-a0a2-4a93-9b46-e4dc13c79ec2.png)

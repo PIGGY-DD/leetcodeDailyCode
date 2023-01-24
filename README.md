@@ -309,6 +309,48 @@ class Solution {
 ```java
 ```
 
+## 2023.1.20
+![image](https://user-images.githubusercontent.com/61445378/214222772-52c3b880-83c1-4e68-9503-eb24320fa768.png)
+![image](https://user-images.githubusercontent.com/61445378/214222807-7294c7fb-9a48-47a9-9d3a-102274acf770.png)
+
+## 思路和代码
+先统计每个用户的活跃时长，因为同一分钟的多次活跃次数记为一次，所以使用set。
+然后根据统计各个时长的数量。
+```java
+class Solution {
+    public int[] findingUsersActiveMinutes(int[][] logs, int k) {
+        int[] ans = new int[k];
+
+        // 先统计每个用户的活跃时间，然后统计活跃时间的数量
+
+        HashMap<Integer, Set<Integer>> map = new HashMap<>();
+
+        for (int[] log : logs) {
+            int id = log[0];
+            int time = log[1];
+            if (map.containsKey(id)) {
+                Set<Integer> set = map.get(id);
+                set.add(time);
+                map.put(id, set);
+            } else {
+                Set<Integer> set = new HashSet<>();
+                set.add(time);
+                map.put(id, set);
+            }
+        }
+        for (int id : map.keySet()) {
+            Set<Integer> set = map.get(id);
+            int times = set.size();
+            if (times > 0) {
+                ans[times-1]++;
+            }
+        }
+
+        return ans;
+    }
+}
+```
+
 ## 2023.1.21
 ![image](https://user-images.githubusercontent.com/61445378/214220710-10981d32-6a47-4c8c-8794-a8bb93cb9faa.png)
 ![image](https://user-images.githubusercontent.com/61445378/214220739-9d44b474-44df-4ddf-9182-2d4cc80cd951.png)

@@ -309,6 +309,37 @@ class Solution {
 ```java
 ```
 
+## 2023.1.23
+![image](https://user-images.githubusercontent.com/61445378/214214843-3416e5ea-40a3-4378-aa23-a227f4ef01b4.png)
+![image](https://user-images.githubusercontent.com/61445378/214214872-4d03773e-a0a2-4a93-9b46-e4dc13c79ec2.png)
+### 思路和代码
+总结来说，最终结果为`ans = b[0][0] * b[0][1] + (b[1][0] - b[0][1]) * b[1][1] + ... + (b[i][0] - b[i-1][0]) * b[i][1] + ... + (income - b[t][0]) * b[t][1]`。但是需要注意几个特殊情况：
+1. income小于等于b[0][0]时，答案为`income * brackets[0][1] * 0.01`;
+2. income大于b[0][0]时，计算[0,b[0][0]]区间时的公式不一样；
+3. 当income小于等于b[t][0]时，计算公式为'(income - brackets[t-1][0]) * b[t][1]'
+```java
+class Solution {
+    public double calculateTax(int[][] brackets, int income) {
+        double ans = 0;
+        if (income <= brackets[0][0]) {
+            return income * brackets[0][1] * 0.01;
+        }
+        for (int i = 0; i < brackets.length; i++) {
+            int a = brackets[i][0];
+            double b = brackets[i][1] * 0.01;
+            if (a >= income) {
+                ans += (income - brackets[i - 1][0]) * b;
+                break;
+            }
+            if (i>0)
+                ans += (a - brackets[i - 1][0]) * b;
+            else
+                ans = a * b;
+        }
+        return ans;
+    }
+}
+```
 
 ## 2023.1.24
 ![image](https://user-images.githubusercontent.com/61445378/214212501-15e65f93-cdf6-41a0-9042-cb7d5f82cb73.png)

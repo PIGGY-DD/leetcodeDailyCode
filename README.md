@@ -457,3 +457,42 @@ class Solution {
     }
 }
 ```
+
+
+## 2023.1.26
+![image](https://user-images.githubusercontent.com/61445378/214756503-190b6356-a0d2-4169-9227-db3564d66e7d.png)
+![image](https://user-images.githubusercontent.com/61445378/214756519-ee535364-3186-44ac-838b-621634a73786.png)
+### 思路和代码
+根据题目要求，最终答案是一个长度为n、由小写字母构成的字符串，且字典序要达到最小，因此最终的字符串只能为类似`aaa...`的格式。为了达到最小的字典序，所以使用倒序的形式求解。
+1. 因为要保证答案的长度，所以每个位置至少为a，因此`k=k-n`；
+2. 从最后的位置开始，每个位置均设置为可能的最大值即可得到最小字典序的答案。
+```java
+class Solution {
+    public String getSmallestString(int n, int k) {
+        StringBuffer sb = new StringBuffer();
+
+         k -= n;
+
+         for (int i=0;i<n;i++)
+         {
+             int cur = 0;
+
+             if (k>=25)
+             {
+                 cur = 25;
+                 k -= 25;
+             }
+             else
+             {
+                 cur = k;
+                 k = 0;
+             }
+
+             char ch = (char) ('a' + cur);
+             sb.append(ch);
+         }
+
+         return sb.reverse().toString();
+    }
+}
+```

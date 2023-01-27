@@ -496,3 +496,43 @@ class Solution {
     }
 }
 ```
+## 2023.1.27
+![image](https://user-images.githubusercontent.com/61445378/215009691-9825117f-91d6-4fac-b7e9-145f7737fd50.png)
+![image](https://user-images.githubusercontent.com/61445378/215009721-a1311452-bff3-4a74-b950-43f1b65b91f8.png)
+### 思路和代码
+分为两步，首先找到大写和小写均存在的字母，然后在这些字母中找到字典序最大的返回即可。
+```java
+class Solution {
+    public String greatestLetter(String s) {
+        int[] letter = new int[26];
+        Arrays.fill(letter, -1);
+        // 将大小写均出现的字母标记为2
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (Character.isLowerCase(ch)) {
+                if (letter[ch - 'a'] == -1) {
+                    letter[ch - 'a'] = 0;
+                }
+                if (letter[ch - 'a'] == 1) {
+                    letter[ch - 'a'] = 2;
+                }
+            } else {
+                if (letter[ch - 'A'] == -1) {
+                    letter[ch - 'A'] = 1;
+                }
+                if (letter[ch - 'A'] == 0) {
+                    letter[ch - 'A'] = 2;
+                }
+            }
+        }
+        String ans = "";
+        
+        for (int i = 25; i >= 0; i--) {
+            if (letter[i] == 2)
+                return String.valueOf((char) ('A' + i));
+        }
+
+        return ans;
+    }
+}
+```

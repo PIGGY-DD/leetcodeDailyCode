@@ -537,10 +537,51 @@ class Solution {
 }
 ```
 ## 2023.1.28
+![image](https://user-images.githubusercontent.com/61445378/215304089-b4320195-8cff-44ea-9e56-8f29bf2672c8.png)
+![image](https://user-images.githubusercontent.com/61445378/215304094-78a6adbe-2e88-44ff-a7a1-ae2e9a1d53e5.png)
 
 ### 思路和代码
-
 ```java
+class Solution {
+    public int waysToMakeFair(int[] nums) {
+        int len = nums.length;
+        
+        // 记录当前位置i的奇数和与偶数和 不包括当前位置i的值
+        int[] odd = new int[len+1];
+        int[] even = new  int[len+1];
+
+        int ans = 0;
+        int oddSum = 0, evenSum = 0;
+
+        for (int i=0;i<len;i++)
+        {
+            if (i%2==0)
+            {
+                evenSum += nums[i];
+            }
+            else
+            {
+                oddSum += nums  [i];
+            }
+            even[i+1] = evenSum;
+            odd[i+1] = oddSum;
+        }
+
+        for (int i=0;i<len;i++)
+        {
+            int curOddSum = 0, curEvenSum = 0;
+
+            // 删除当前位置后，奇数和 偶数和
+            // 奇数和 = 当前位置之前的奇数和 + 最大偶数和-当前位置+1的偶数和
+            curOddSum = odd[i] + even[len] - even[i+1];
+            curEvenSum = even[i] + odd[len] - odd[i+1];
+            if (curEvenSum == curOddSum)
+                ans++;
+        }
+
+        return ans;
+    }
+}
 ```
 
 ## 2023.1.29

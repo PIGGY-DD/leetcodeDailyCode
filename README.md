@@ -536,3 +536,57 @@ class Solution {
     }
 }
 ```
+## 2023.1.28
+
+### 思路和代码
+
+```java
+```
+
+## 2023.1.29
+![image](https://user-images.githubusercontent.com/61445378/215303151-5fd6e07c-545b-432c-b40f-0979fc937ba9.png)
+![image](https://user-images.githubusercontent.com/61445378/215303188-e9f5489a-c401-4894-a40b-4c0719297a84.png)
+
+### 思路和代码
+使用标志位，在遇到第一个`|`前开始记录`*`的数量，每遇到一个`|`改变标志位的值，根据标志位的值决定是否记录`*`的数量。
+```java
+class Solution {
+    public int countAsterisks(String s) {
+        int cnt = 0;
+
+        int flag = 1;
+        int len = s.length();
+        int index = 0;
+
+        while (index<len)
+        {
+            if (flag == 1)
+            {
+                while (index<len)
+                {
+                    char ch = s.charAt(index);
+                    if (ch == '*')
+                        cnt++;
+                    if (ch == '|')
+                        break;
+                    index++;
+                }
+            }
+            else
+            {
+                while (index<len)
+                {
+                    char ch = s.charAt(index);
+                    if (ch == '|')
+                        break;
+                    index++;
+                }
+            }
+            flag *= -1;
+            index++;
+        }
+
+        return cnt;
+    }
+}
+```

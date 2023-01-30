@@ -631,3 +631,52 @@ class Solution {
     }
 }
 ```
+## 2023.1.30
+![image](https://user-images.githubusercontent.com/61445378/215401968-0aef8c47-e056-49a5-964a-671391222dce.png)
+![image](https://user-images.githubusercontent.com/61445378/215402018-92a66e73-9465-4f2f-b200-1764d5853d6f.png)
+![image](https://user-images.githubusercontent.com/61445378/215402058-0796aa40-256c-42a2-a7ab-1a7063fb7e3e.png)
+
+### 思路和代码
+使用计数器
+1. 将list1中索引a之前的节点存入head中
+2. 跳过list1中需要删除的节点
+3. 将list2中的节点存入head中
+4. 将list1的剩余节点存入head中
+```java
+class Solution {
+    public ListNode mergeInBetween(ListNode list1, int a, int b, ListNode list2) {
+        ListNode head = new ListNode();
+        ListNode root = new ListNode();
+        head = root;
+
+        int index = 0;
+
+        while(index < a)
+        {
+            root.next = list1;
+            root = root.next;
+            list1 = list1.next;
+            index++;
+        }
+        while(index <= b)
+        {
+            list1 = list1.next;
+            index++;
+        }
+        while(list2 != null)
+        {
+            root.next = list2;
+            root = root.next;
+            list2 = list2.next;
+        }
+        while(list1 != null)
+        {
+            root.next = list1;
+            root = root.next;
+            list1 = list1.next;
+        }
+
+        return head.next;
+    }
+}
+```

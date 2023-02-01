@@ -680,3 +680,38 @@ class Solution {
     }
 }
 ```
+## 2023.2.1
+![image](https://user-images.githubusercontent.com/61445378/215964574-c9ca38d8-1f28-4b75-9f2d-bb535e63f28c.png)
+![image](https://user-images.githubusercontent.com/61445378/215964606-1b9b6c2e-77fa-44a6-94f0-b4c8b472684f.png)
+
+### 思路和代码
+整个题的思路是根据key中每个字母首次出现的顺序进行排序，然后找到message中对应小写字母在上述顺序的索引编号，根据该索引编号找到对应字典序下对应的小写字母，拼接为最终的明文信息。
+```java
+class Solution {
+    public String decodeMessage(String key, String message) {
+        StringBuffer sb = new StringBuffer();
+
+        StringBuffer code = new StringBuffer();
+        // 获取key中的字母出现顺序
+        for(char ch : key.toCharArray())
+        {
+            if(ch!=' ' && code.indexOf(String.valueOf(ch)) == -1)
+                code.append(ch);
+        }
+
+        for(char ch : message.toCharArray())
+        {
+            if(ch == ' ')
+                sb.append(ch);
+            else{
+                // 找到索引顺序
+                int index = code.indexOf(String.valueOf(ch));
+                // 根据上述的索引顺序找到对应的字母
+                sb.append((char)('a'+index));
+            }
+        }
+
+        return sb.toString();
+    }
+}
+```

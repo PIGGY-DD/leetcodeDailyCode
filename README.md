@@ -313,7 +313,7 @@ class Solution {
 ![image](https://user-images.githubusercontent.com/61445378/214222772-52c3b880-83c1-4e68-9503-eb24320fa768.png)
 ![image](https://user-images.githubusercontent.com/61445378/214222807-7294c7fb-9a48-47a9-9d3a-102274acf770.png)
 
-## 思路和代码
+### 思路和代码
 先统计每个用户的活跃时长，因为同一分钟的多次活跃次数记为一次，所以使用set。
 然后根据统计各个时长的数量。
 ```java
@@ -356,7 +356,7 @@ class Solution {
 ![image](https://user-images.githubusercontent.com/61445378/214220739-9d44b474-44df-4ddf-9182-2d4cc80cd951.png)
 ![image](https://user-images.githubusercontent.com/61445378/214220764-daf468d0-e662-4d1b-bc0a-fa8fd28b9919.png)
 ![image](https://user-images.githubusercontent.com/61445378/214220805-1547322d-ee25-4a21-8fc8-82087b146a0c.png)
-## 思路和代码
+### 思路和代码
 使用动态规划的思想，每次计算到当前位置需要的最少横跳的次数。计算过程中分为一下几种情况：
 1. 当前位置有石头，则标记为最大值`dp[i][j] = 0x3f3f3f3f`
 2. 当前位置没有石头，则分为两种情况

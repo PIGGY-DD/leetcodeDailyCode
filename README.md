@@ -680,6 +680,41 @@ class Solution {
     }
 }
 ```
+## 2023.1.31
+![image](https://user-images.githubusercontent.com/61445378/215966660-010bfcbb-3697-4c9e-a0f6-b99fed506bce.png)
+![image](https://user-images.githubusercontent.com/61445378/215966695-db89c0f2-b440-4cbc-bcaa-f86c1ae1849f.png)
+### 思路和代码
+因为题目要求就是：对角线元素只能是非零值，而对角线元素只能是0。根据这种要求进行判断即可。
+对角线元素的坐标值存在两种情况：`i==j`和`i+j=n-1`，根据这个进行判断即可。
+```java
+class Solution {
+    public boolean checkXMatrix(int[][] grid) {
+        int n = grid.length;
+        
+
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {   
+                if((i+j == n-1) || i == j)
+                {
+                    //System.out.println(i+"-"+j+" "+grid[i][j]);
+                    // 对于对角线元素
+                    if(grid[i][j] == 0)
+                        return false;
+                }
+                else
+                {
+                    if(grid[i][j] != 0)
+                        return false;
+                }
+            }
+        }
+        return true;
+
+    }
+}
+```
 ## 2023.2.1
 ![image](https://user-images.githubusercontent.com/61445378/215964574-c9ca38d8-1f28-4b75-9f2d-bb535e63f28c.png)
 ![image](https://user-images.githubusercontent.com/61445378/215964606-1b9b6c2e-77fa-44a6-94f0-b4c8b472684f.png)

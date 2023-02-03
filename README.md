@@ -750,3 +750,54 @@ class Solution {
     }
 }
 ```
+## 2023.2.3
+![image](https://user-images.githubusercontent.com/61445378/216517846-9cc51f95-affb-4407-af6a-1904b6ed5a3a.png)
+![image](https://user-images.githubusercontent.com/61445378/216517886-679c64fd-dd0d-4fb2-b3f2-d3a42c6018ac.png)
+![image](https://user-images.githubusercontent.com/61445378/216517907-6142b7b6-77d9-422c-991a-57ba2e5ceb68.png)
+
+### 思路和代码
+因为每次只能从已经染色的节点向周围扩散。当先手选择x之后，作为后手只能在x的左子树、x的右子树、树的其他位置三个部分选择y，因此只要这三个部分中存在一个部分的节点数量大于n的一半，即可获得胜利。因此整个题的解题思路为：
+1. 首先找到x节点；
+2. 然后分别统计x的左子树、右子树、其他部分的节点数量；
+3. 因为n为奇数，所以只要上述三部分的节点数量大于等于(n+1)/2即可后手取胜。
+```java
+class Solution {
+    TreeNode xNode;
+    public boolean btreeGameWinningMove(TreeNode root, int n, int x) {
+        // 首先找到x节点所在的位置
+        dfs(root,x);
+
+        // 统计x的左子树的结点数量
+        int leftNodeNum = getTreeSize(xNode.left);
+        if(leftNodeNum >= (n+1)/2)
+            return true;
+        // 统计x的右子树的结点数量
+        int rightNodeNum = getTreeSize(xNode.right);
+        if(rightNodeNum >= (n+1)/2)
+            return true;
+        // 统计剩余的节点数量
+        int remain = n - 1 - leftNodeNum - rightNodeNum;
+        return remain>=(n+1)/2;
+    }
+
+    public void dfs(TreeNode root, int x)
+    {
+        if(root == null || xNode != null)
+            return;
+        if(root.val == x)
+        {
+            xNode = root;
+            return;
+        }
+        dfs(root.left,x);
+        dfs(root.right,x);
+    }
+
+    public int getTreeSize(TreeNode root)
+    {
+        if(root == null)
+            return 0;
+        return 1+getTreeSize(root.left) + getTreeSize(root.right);
+    }
+}
+```

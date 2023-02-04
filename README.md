@@ -801,3 +801,23 @@ class Solution {
     }
 }
 ```
+## 2023.2.4
+![image](https://user-images.githubusercontent.com/61445378/216754693-a692e2bb-f3e9-4e86-a4fa-b489743c8c68.png)
+![image](https://user-images.githubusercontent.com/61445378/216754710-42727a6e-18c1-4281-ae17-c22284251ad2.png)
+
+### 思路和代码
+因为求的是从0开始最多的连续和，所以将数组进行排序。因为答案最开始为1，所以要求升序数组的第一个元素必须要是1，此时的cnt为2；若能继续满足下去，数组和为2，此时数组元素为[2]或[1,1]；数组和为3，数组元素为[1,1,1]或[1,2]或[1,2,3]依次类推；所以每次cnt的和都要小于等于当前遍历的升序数组中的元素。
+```java
+class Solution {
+    public int getMaximumConsecutive(int[] coins) {
+        int cnt = 1;
+        Arrays.sort(coins);
+        for(int i:coins){
+            if (i>cnt)
+                break;
+            cnt += i;
+        }
+        return cnt;
+    }
+}
+```
